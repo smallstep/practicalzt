@@ -164,6 +164,12 @@ The request will contain the `scepChallenge` provided by the client and the `sce
 Unlike webhooks configured on other provisioners, when a single SCEP provisioner is configured with multiple `SCEPCHALLENGE` webhooks, 
 only a single one of the `SCEPCHALLENGE` webhooks needs to indicate the request is allowed for the certificate to be issued.
 
+### Webhooks for Cloud (AWS, Azure, GCP) and X5C Provisioners
+
+When signing requests are authorized by one of these provisioners, the request body will also contain the authorizing principal(s)
+from the request. For cloud provisioners, this will be the instance identifier from the [Instance Identity Document](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-identity-documents.html),
+and for X5C provisioners, this will be the certificate subject of the presented leaf certificate.
+
 ### SSH Request Body
 
 For SSH certificates `step-ca` will include an `sshCertificateRequest` field with [data from the request](https://github.com/smallstep/certificates/blob/c169defc73db6ba4b83e1acd5bd31feafb4df050/webhook/types.go#L37).
